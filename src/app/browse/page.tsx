@@ -38,7 +38,7 @@ export default async function Home({
       {rooms.length === 0 && (
         <div className="flex flex-col gap-4 justify-center items-center mt-24">
           <Image
-            src="/no-data.png"
+            src="/public/no-data.png"
             width="200"
             height="200"
             alt="no data image"
