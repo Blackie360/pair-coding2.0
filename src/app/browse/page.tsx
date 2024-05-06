@@ -4,6 +4,7 @@ import { getRooms } from "@/data-access/rooms";
 import { SearchBar } from "./search-bar";
 import { RoomCard } from "./room-card";
 import { unstable_noStore } from "next/cache";
+import nodata from '@/public/no-data.png'
 import Image from "next/image";
 
 export default async function Home({
@@ -38,7 +39,7 @@ export default async function Home({
       {rooms.length === 0 && (
         <div className="flex flex-col gap-4 justify-center items-center mt-24">
           <Image
-            src='public/data.png'
+            src='/no-data.png'
             width="200"
             height="200"
             alt="no data image"
