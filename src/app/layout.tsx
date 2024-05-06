@@ -4,14 +4,16 @@ import "./globals.css";
 import { Providers } from "./provider";
 import { Header } from "./header";
 import NextTopLoader from "nextjs-toploader";
+import { Analytics } from '@vercel/analytics/react';
 import { Toaster } from "@/components/ui/toaster";
+import { SpeedInsights } from "@vercel/speed-insights/next"
 
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "Code Buddy",
   description:
-    "An application to help devs to pair program with other devs online devs online",
+    "An application to help devs to pair program with other devs online ",
 };
 
 export default function RootLayout({
@@ -27,6 +29,8 @@ export default function RootLayout({
           <NextTopLoader />
           <Header />
           <div className="container mx-auto">{children}</div>
+          <SpeedInsights />
+          <Analytics />
         </Providers>
       </body>
     </html>
