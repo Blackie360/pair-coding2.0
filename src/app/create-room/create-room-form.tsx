@@ -76,7 +76,7 @@ export function CreateRoomForm() {
               <FormControl>
                 <Input
                   {...field}
-                  placeholder="Im working on a side project, come join me"
+                  placeholder="Im working on a project, come join me"
                 />
               </FormControl>
               <FormDescription>
