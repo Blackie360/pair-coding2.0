@@ -7,7 +7,7 @@ import NextTopLoader from "nextjs-toploader";
 import { Analytics } from '@vercel/analytics/react';
 import { Toaster } from "@/components/ui/toaster";
 import { SpeedInsights } from "@vercel/speed-insights/next"
-
+import Chat from "./Chat";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -29,6 +29,7 @@ export default function RootLayout({
           <NextTopLoader />
           <Header />
           <div className="container mx-auto">{children}</div>
+          <Chat />
           <SpeedInsights />
           <Analytics />
         </Providers>
