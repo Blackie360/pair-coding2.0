@@ -77,7 +77,7 @@ const Chatsupport = () => {
 
   const handlePresetQuestion = (index:number) => {
     const question = messages[index];
-    const updatedAnswered = [...answered, question.answerid];
+    const updatedAnswered = [...answered, question.answerId];
     
    
 
@@ -88,17 +88,17 @@ const Chatsupport = () => {
         isBot: false,
         message: question.message,
         isPresetQuestion: false,
-        answerid: "",
+        answerId: "",
         isUser: true,
     },
     {
       isBot: true,
-      message: PRESET_ANSWERS[question.answerid as unknown as keyof typeof PRESET_ANSWERS].message,
+      message: PRESET_ANSWERS[question.answerId as unknown as keyof typeof PRESET_ANSWERS].message,
       isPresetQuestion: false,
-      answerid: "",
+      answerId: "",
       isUser: false,
     },
-    ...PRESET_QUESTIONS.filter((question) => !updatedAnswered.includes(question.answerid)),
+    ...PRESET_QUESTIONS.filter((question) => !updatedAnswered.includes(question.answerId)),
     ])
     setAnswered(updatedAnswered);
   }

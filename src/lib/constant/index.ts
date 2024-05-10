@@ -28,7 +28,7 @@ export const PRESET_MESSAGE =[
         message:
         "Hi, I am your code buddy. Try this questions to get started.",
         isPresetQuestion: false,
-        answerid: "",
+        answerId: "",
         isUser: false,
     },
     ...PRESET_QUESTIONS,
