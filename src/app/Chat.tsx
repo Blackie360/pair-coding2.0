@@ -1,8 +1,11 @@
 "use client";
+import { PRESET_ANSWERS, PRESET_MESSAGE, PRESET_QUESTIONS } from "@/lib/constant";
 import { cn } from "@/lib/utils";
 import { motion } from "framer-motion"
 import { Minus } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+
+import { ScrollArea } from "@/components/ui/scroll-area"
 
 const Chat = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -41,8 +44,8 @@ const Chat = () => {
        }
        {
         isOpen && (
-          <div className="w-full h-full ">
-        <div className="p-5 border-b flex items-center justify-between">
+          <ScrollArea className="w-full h-full ">
+        <div className="p-5 border-b flex items-center justify-between absolute top-0 w-full right-0 bg-stone-800">
           <h1 className="text-2xl">👨‍💻 chat</h1>
           <Minus 
           onClick={() => {
@@ -50,12 +53,11 @@ const Chat = () => {
           }}
            className="w-8 h-8 cursor-pointer"/>
         </div>
-        <div className="p-5 space-y-2">
-        <Bot/>
-        <PresetQuestions/>
-        <User/>
+        <div className="p-5 space-y-2 mt-16">
+        <Chatsupport />
         </div>
-       </div>
+        <div id="bottom-chat"></div>
+       </ScrollArea>
         )
        }
        </motion.div>
@@ -63,8 +65,67 @@ const Chat = () => {
   )
 }
 
+const Chatsupport = () => {
+  const  [messages, setMessages] = useState(PRESET_MESSAGE);
+  const [answered, setAnswered] = useState<string[]>([]);
+
+  useEffect(() => {
+    document.getElementById("bottom-chat")?.scrollIntoView({behavior: "smooth"});
+    
+    
+  }, [messages.length]);
+
+  const handlePresetQuestion = (index:number) => {
+    const question = messages[index];
+    const updatedAnswered = [...answered, question.answerId];
+    
+   
+
+
+    setMessages((current)=>[
+      ...current,
+      {
+        isBot: false,
+        message: question.message,
+        isPresetQuestion: false,
+        answerid: "",
+        isUser: true,
+    },
+    {
+      isBot: true,
+      message: PRESET_ANSWERS[question.answerId as unknown as keyof typeof PRESET_ANSWERS].message,
+      isPresetQuestion: false,
+      answerid: "",
+      isUser: false,
+    },
+    ...PRESET_QUESTIONS.filter((question) => !updatedAnswered.includes(question.answerId)),
+    ])
+    setAnswered(updatedAnswered);
+  }
+  return <>
+  {messages.map((message, key)=> {
+    if (message.isBot) {
+      return <Bot message={message.message} key={key}/>
+    } else if (message.isPresetQuestion){
+      return <PresetQuestions 
+      message={message.message}
+       key={key}
+       onClick={()=>handlePresetQuestion(key)}
+       />
+
+    } else if (message.isUser){
+      return <User message={message.message} key={key}/>
+    }
+
+  })}
+ 
+  </>
+
+};
+
+
 export default Chat
-const Bot = () => {
+const Bot = ({message}:{message:string}) => {
   return <motion.div>
     <div className="flex items-center gap-2">
       <span className="bg-zinc-900 rounded-full">
@@ -73,20 +134,20 @@ const Bot = () => {
       <h1>Code Buddy</h1>
     </div>
     <h1>
-      Hi, I am your code buddy. How can I help you today?
+     {message}
     </h1>
   </motion.div>
 };
 
-const PresetQuestions = () => {
-  return <motion.div className="cursor-pointer" onClick={() => {
-    alert("I am sorry, I am just a dummy component. I can't help you with that.")
-  }}>
-    <h1 className="inline-block p-2 bg-zinc-900 rounded-md">What do you want to learn today?</h1>
+const PresetQuestions = ({message, onClick}:{message:string, onClick: () => void;}) => {
+  return <motion.div className="cursor-pointer hover:tracking-wider transition-all"
+   onClick={onClick}>
+    <h1 className="inline-block p-2 bg-zinc-900 rounded-md px-3 ">{message}</h1>
   </motion.div>
 }
 
-const User = () => {
+
+const User = ({message}:{message:string}) => {
   return <motion.div>
     <div className="flex items-center justify-end gap-2">
       <h1 className="text-gray-300">You</h1>
@@ -95,8 +156,8 @@ const User = () => {
       </span>
       
     </div>
-    <h1>
-      Hi, I am your code buddy. How can I help you today?
+    <h1 className="text-right">
+      {message}
     </h1>
   </motion.div>
 };
