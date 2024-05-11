@@ -29,7 +29,6 @@ export default function RootLayout({
           <NextTopLoader />
           <Header />
           <div className="container mx-auto">{children}</div>
-          {/* <Chat /> */}
           <SpeedInsights />
           <Analytics />
         </Providers>
