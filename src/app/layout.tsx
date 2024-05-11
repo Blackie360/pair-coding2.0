@@ -7,7 +7,6 @@ import NextTopLoader from "nextjs-toploader";
 import { Analytics } from '@vercel/analytics/react';
 import { Toaster } from "@/components/ui/toaster";
 import { SpeedInsights } from "@vercel/speed-insights/next"
-import Chat from "./Chat";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
