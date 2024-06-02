@@ -23,8 +23,8 @@ Welcome to **Code Buddy** – your ultimate platform to connect with talented de
 
 ### Prerequisites
 
-- Node.js
-- npm or yarn
+
+- npm 
 - PostgreSQL
 
 ### Installation
